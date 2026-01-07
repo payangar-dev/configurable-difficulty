@@ -22,3 +22,10 @@ type = "required"
 versionRange = "[${minecraft_version},)"
 ordering = "NONE"
 side = "SERVER"
+
+[[dependencies.${mod_id}]]
+modId = "yet_another_config_lib_v3"
+type = "required"
+versionRange = "[3.6.0,)"
+ordering = "BEFORE"
+side = "BOTH"

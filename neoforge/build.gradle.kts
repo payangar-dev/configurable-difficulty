@@ -15,6 +15,8 @@ base {
 dependencies {
     implementation("net.neoforged:neoforge:$neoforgeVersion")
     implementation(project(":common"))
+
+    implementation("dev.isxander:yet-another-config-lib:3.6.1+1.21-neoforge")
 }
 
 tasks.named<ProcessResources>("processResources") {

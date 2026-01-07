@@ -9,19 +9,17 @@ public class BiomeDifficulty {
     public static final String MOD_NAME = "Biome Difficulty";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
     
-    private static BiomeConfig config;
-    
     public static void init() {
         LOGGER.info("Initializing {} mod", MOD_NAME);
         loadConfig();
     }
-    
+
     public static void loadConfig() {
-        config = BiomeConfig.load();
+        BiomeConfig.HANDLER.load();
         LOGGER.info("Configuration loaded successfully");
     }
-    
+
     public static BiomeConfig getConfig() {
-        return config;
+        return BiomeConfig.HANDLER.instance();
     }
 }

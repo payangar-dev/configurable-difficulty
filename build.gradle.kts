@@ -13,6 +13,7 @@ allprojects {
         maven("https://maven.fabricmc.net/")
         maven("https://maven.neoforged.net/releases/")
         maven("https://maven.parchmentmc.org")
+        maven("https://maven.isxander.dev/releases")
     }
     
     val javaVersionNum: Int = try {

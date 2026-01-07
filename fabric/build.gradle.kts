@@ -16,11 +16,13 @@ base {
 dependencies {
     minecraft("com.mojang:minecraft:$minecraftVersion")
     mappings(loom.officialMojangMappings())
-    
+
     modImplementation("net.fabricmc:fabric-loader:$fabricLoaderVersion")
     modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricApiVersion")
-    
+
     implementation(project(":common"))
+
+    modImplementation("dev.isxander:yet-another-config-lib:3.6.1+1.21-fabric")
 }
 
 tasks.named<ProcessResources>("processResources") {
