@@ -1,0 +1,43 @@
+# Gradle
+.gradle/
+build/
+out/
+classes/
+
+# Eclipse
+*.launch
+.settings/
+.metadata
+.classpath
+.project
+.recommenders/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Minecraft
+run/
+logs/
+config/
+
+# Fabric
+remappedSrc/
+.fabric/
+
+# NeoForge
+forge/
+
+# Other
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.log
