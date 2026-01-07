@@ -1,6 +1,7 @@
 package com.example.biomediff.config;
 
 import com.example.biomediff.BiomeDifficulty;
+import de.marhali.json5.Json5;
 import com.google.gson.*;
 
 import java.io.IOException;
@@ -29,9 +30,7 @@ public class BiomeConfig {
     public Map<String, BiomeMultipliers> dimensionMultipliers = new HashMap<>();
     public Map<String, BiomeMultipliers> biomeMultipliers = new HashMap<>();
     public DepthScalingConfig depthScaling = new DepthScalingConfig();
-    
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    
+
     public static BiomeConfig load() {
         Path configPath = getConfigPath();
         
@@ -43,9 +42,9 @@ public class BiomeConfig {
         }
         
         try {
-            String json = Files.readString(configPath);
-            return fromJson(json);
-        } catch (IOException e) {
+            String json5Content = Files.readString(configPath);
+            return fromJson5(json5Content);
+        } catch (Exception e) {
             BiomeDifficulty.LOGGER.error("Failed to load config, using defaults", e);
             return createDefault();
         }
@@ -55,7 +54,7 @@ public class BiomeConfig {
         try {
             Path configPath = getConfigPath();
             Files.createDirectories(configPath.getParent());
-            Files.writeString(configPath, toJson());
+            Files.writeString(configPath, toJson5());
             BiomeDifficulty.LOGGER.info("Config saved to {}", configPath);
         } catch (IOException e) {
             BiomeDifficulty.LOGGER.error("Failed to save config", e);
@@ -63,7 +62,7 @@ public class BiomeConfig {
     }
     
     private static Path getConfigPath() {
-        return Paths.get("config", "configurable-difficulty.json");
+        return Paths.get("config", "configurable-difficulty.json5");
     }
     
     private static BiomeConfig createDefault() {
@@ -124,8 +123,11 @@ public class BiomeConfig {
         return config;
     }
     
-    private static BiomeConfig fromJson(String jsonStr) {
+    private static BiomeConfig fromJson5(String json5Str) {
         BiomeConfig config = new BiomeConfig();
+        // Parse JSON5 using the JSON5 parser
+        Json5 json5Parser = new Json5();
+        String jsonStr = json5Parser.parse(json5Str).toString();
         JsonObject json = JsonParser.parseString(jsonStr).getAsJsonObject();
         
         if (json.has("enabled")) config.enabled = json.get("enabled").getAsBoolean();
@@ -173,40 +175,7 @@ public class BiomeConfig {
         return config;
     }
     
-    private String toJson() {
-        JsonObject json = new JsonObject();
-        
-        json.addProperty("enabled", enabled);
-        json.addProperty("playerMode", playerMode.name().toLowerCase());
-        json.addProperty("mobMode", mobMode.name().toLowerCase());
-        json.addProperty("checkInterval", checkInterval);
-        
-        json.addProperty("applyToHostileMobs", applyToHostileMobs);
-        json.addProperty("applyToPassiveMobs", applyToPassiveMobs);
-        json.addProperty("applyToNeutralMobs", applyToNeutralMobs);
-        
-        JsonObject debug = new JsonObject();
-        debug.addProperty("enabled", debugEnabled);
-        debug.addProperty("logBiomeChanges", debugLogBiomeChanges);
-        debug.addProperty("logAttributeChanges", debugLogAttributeChanges);
-        json.add("debug", debug);
-        
-        json.add("enabledAttributes", enabledAttributes.toJson());
-        json.add("defaultMultipliers", defaultMultipliers.toJson());
-        
-        JsonObject biomes = new JsonObject();
-        for (Map.Entry<String, BiomeMultipliers> entry : biomeMultipliers.entrySet()) {
-            biomes.add(entry.getKey(), entry.getValue().toJson());
-        }
-        json.add("biomeMultipliers", biomes);
-        
-        json.add("depthScaling", depthScaling.toJson());
-        
-        String jsonString = GSON.toJson(json);
-        return addConfigComments(jsonString);
-    }
-    
-    private String addConfigComments(String json) {
+    private String toJson5() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
         sb.append("  // Enable/disable the entire mod\n");
@@ -337,7 +306,6 @@ public class BiomeConfig {
         sb.append("      \"luck\": ").append(depthScaling.maxMultipliers.luck).append("\n");
         sb.append("    }\n");
         sb.append("  }\n");
-        
         sb.append("}\n");
         
         return sb.toString();

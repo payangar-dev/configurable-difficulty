@@ -42,11 +42,11 @@ A server-side Minecraft mod that adjusts entity attributes based on their biome,
 
 ## Configuration
 
-The config file is located at `config/configurable-difficulty.json` and is automatically generated with helpful comments on first run.
+The config file is located at `config/configurable-difficulty.json5` and is automatically generated with helpful comments on first run. JSON5 format supports comments, making the config easy to read and edit.
 
 ### Example Configuration
 
-```json
+```json5
 {
   "enabled": true,
   "playerMode": "dynamic",
@@ -164,7 +164,7 @@ Final Multiplier = Dimension Multiplier × Biome Multiplier × Depth Multiplier
 
 Simply add the biome ID to the `biomeMultipliers` section:
 
-```json
+```json5
 "biomeMultipliers": {
   "biomesoplenty:ominous_woods": {
     "maxHealth": 2.0,
@@ -182,7 +182,7 @@ Simply add the biome ID to the `biomeMultipliers` section:
 
 Simply add the dimension ID to the `dimensionMultipliers` section:
 
-```json
+```json5
 "dimensionMultipliers": {
   "minecraft:overworld": {
     "maxHealth": 1.0,
@@ -244,7 +244,7 @@ Output files will be in:
 1. Download the appropriate JAR file for your mod loader
 2. Place it in the `mods` folder of your server
 3. Start the server
-4. Configure the mod by editing `config/configurable-difficulty.json`
+4. Configure the mod by editing `config/configurable-difficulty.json5`
 5. Restart the server or reload (if supported)
 
 ## How It Works
