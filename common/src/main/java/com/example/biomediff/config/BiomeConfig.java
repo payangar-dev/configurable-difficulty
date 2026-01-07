@@ -63,7 +63,7 @@ public class BiomeConfig {
     }
     
     private static Path getConfigPath() {
-        return Paths.get("config", "biome-difficulty.json");
+        return Paths.get("config", "configurable-difficulty.json");
     }
     
     private static BiomeConfig createDefault() {
