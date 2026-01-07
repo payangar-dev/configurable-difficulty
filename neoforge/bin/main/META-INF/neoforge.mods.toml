@@ -3,22 +3,22 @@ loaderVersion = "[4,)"
 license = "MIT"
 
 [[mods]]
-modId = "${mod_id}"
-version = "${version}"
-displayName = "${mod_name}"
+modId = "biomediff"
+version = "1.0.0"
+displayName = "Configurable Difficulty"
 description = "Adjusts entity attributes based on configurable difficulty"
-authors = "${mod_author}"
+authors = "Payangar"
 
-[[dependencies.${mod_id}]]
+[[dependencies.biomediff]]
 modId = "neoforge"
 type = "required"
 versionRange = "[21.1,)"
 ordering = "NONE"
 side = "SERVER"
 
-[[dependencies.${mod_id}]]
+[[dependencies.biomediff]]
 modId = "minecraft"
 type = "required"
-versionRange = "[${minecraft_version},)"
+versionRange = "[1.21.1,)"
 ordering = "NONE"
 side = "SERVER"

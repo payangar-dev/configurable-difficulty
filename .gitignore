@@ -28,7 +28,6 @@ out/
 # Minecraft
 run/
 logs/
-config/
 
 # Fabric
 remappedSrc/
